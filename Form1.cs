@@ -19,10 +19,15 @@ namespace Tic_Tac_Toe
             GenerateButtons();
         }
 
+        string currentPlayer = "X";
+        public static Button[,] buttons = new Button[3, 3];
+        static string winner = "0";
+        static int moveCounter = 0;
+
         public void GenerateButtons()
         {
             //Create a 3x3 grid of buttons
-            Button[,] buttons = new Button[3, 3];
+            
 
             //Let's position the buttons
             for(int i = 0; i < 3; i++)
@@ -58,8 +63,51 @@ namespace Tic_Tac_Toe
             //Let's convert sender in button
             Button button = sender as Button;
 
-            button.Text = "X";
+            button.Text = currentPlayer;
+            if (currentPlayer == "X")
+                currentPlayer = "O";
+            else
+                currentPlayer = "X";
+
+            checkWinner();
+            moveCounter += 1;
             
+        }
+
+        //Method to call when checking the winner
+        public static void checkWinner()
+        {
+            //Let's check all the vertical lines
+            for(int j = 0; j < 3; j++)
+            {
+                if (buttons[0, j].Text == buttons[1, j].Text && buttons[1, j].Text == buttons[2, j].Text)
+                    winner = buttons[0, j].Text;
+            }
+
+            //Let's check all horizontal lines
+            for (int i = 0; i < 3; i++)
+            {
+                if (buttons[i, 0].Text == buttons[i, 1].Text && buttons[i, 1].Text == buttons[i, 2].Text)
+                    winner = buttons[i, 0].Text;
+            }
+
+            //Let's check diagonal from 0,0 to 2,2
+            if (buttons[0, 0].Text == buttons[1, 1].Text && buttons[1, 1].Text == buttons[2, 2].Text)
+                winner = buttons[0, 0].Text;
+
+            //Let's check diagonal from 0,2 to 2,0
+            if (buttons[0, 2].Text == buttons[1, 1].Text && buttons[1, 1].Text == buttons[2, 0].Text)
+                winner = buttons[0, 2].Text;
+
+            //Let's send the message box
+            if (winner == "X")
+                MessageBox.Show("Player 1 Wins!");
+            if(winner == "O")
+                MessageBox.Show("Player 2 Wins!");
+            //Match ends in a draw
+            if (winner == "0" && moveCounter == 9)
+                MessageBox.Show("Draw!");
+
         }
     }
 }

@@ -8,6 +8,7 @@ namespace Tic_Tac_Toe
 {
     static class Program
     {
+
         /// <summary>
         /// Punto di ingresso principale dell'applicazione.
         /// </summary>
@@ -18,5 +19,6 @@ namespace Tic_Tac_Toe
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
         }
+
     }
 }
